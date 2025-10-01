@@ -1,0 +1,5 @@
+.custom_main_bg{
+    background-image: url(../images/room_bg2.jpg);
+    background-attachment: fixed; 
+    background-size: 45%;
+}
