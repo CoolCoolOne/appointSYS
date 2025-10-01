@@ -23,9 +23,11 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Главная</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">Описание</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">API доки</a>
+                    </li>
 
                     @auth
 
@@ -52,17 +54,17 @@
 
                 </ul>
                 @auth
-                    <div class="text-decoration-none navbar-text bg-success rounded rounded-3 opacity-25" style="background-color: #198754 !important"
-                       >
+                    <div class="text-decoration-none navbar-text bg-success rounded rounded-3 opacity-25"
+                        style="background-color: #198754 !important">
                         <div class="nav-link text-dark bg-success rounded rounded-3">
                             <div><b>{{ auth()->user()->name }}</b>
-                        </div>
-                        
-                        
-                    </a>
-                @endauth
-            </div>
-        </div>
+                            </div>
+
+
+                            </a>
+                        @endauth
+                    </div>
+                </div>
     </nav>
 
 
