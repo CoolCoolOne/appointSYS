@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 offset-md-12">
-            <h1 class="mb-5">Регистрация</h1>
+            <h1 class="mb-5">Запрос регистрации</h1>
 
 
             <form enctype="multipart/form-data" action="{{ route('user.store') }}" method="post">
@@ -13,8 +13,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email адрес (если у вас почта не yandex, обратитесь к
-                        админу)</label>
+                    <label for="email" class="form-label">Email адрес</label>
                     <input name='email' type="email" class="form-control @error('email') is-invalid @enderror"
                         id="email" placeholder="email" value="{{ old('email') }}">
 
@@ -60,22 +59,11 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
-                    <label for="avatar" class="form-label">Загрузите аватар [необяз]</label>
-                    <input name='avatar' class="form-control @error('avatar') is-invalid @enderror" type="file"
-                        id="avatar">
-
-                    @error('avatar')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
 
                 <div class="mt-5 text-center">
                     <button type="submit" class="btn  btn-light">
-                        Регистрация!
+                        Отправить!
                     </button>
-
-                    <a href="{{ route('login') }}" class="ms-3 text-secondary"> Уже зареганы? Авторизнитесь </a>
                 </div>
 
 

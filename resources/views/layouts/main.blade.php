@@ -11,63 +11,71 @@
 
 </head>
 
-<body class="bg-dark text-light custom_main_bg">
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('home') }}">AppointmentSYS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">Описание</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">API доки</a>
-                    </li>
-
-                    @auth
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userlist') }}">Пользователи</a>
-                        </li>
+<body class="bg-dark text-light custom_main_bg d-flex">
 
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}">Разлогиниться</a>
-                        </li>
-
-
-
-                    @endauth
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Авторизация</a>
-                        </li>
-                    @endguest
-
-                </ul>
-                @auth
-                    <div class="text-decoration-none navbar-text bg-success rounded rounded-3 opacity-25"
-                        style="background-color: #198754 !important">
-                        <div class="nav-link text-dark bg-success rounded rounded-3">
-                            <div><b>{{ auth()->user()->name }}</b>
-                            </div>
-
-
-                            </a>
-                        @endauth
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100" style="width: 220px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <img width="25" class="me-1" src="{{ asset('images/icon.png') }}" alt="calendar">
+            <span class="fs-5">AppointSYS</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="{{ route('home') }}" class="nav-link text-white" aria-current="page"> 
+                    Описание
+                </a>
+            </li>
+            @guest
+            <li class="nav-item">
+                <a href="{{ route('login') }}" class="nav-link text-white" aria-current="page">
+                    Авторизация
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('register') }}" class="nav-link text-white" aria-current="page">
+                    Пригласите меня
+                </a>
+            </li>
+            @endguest
+            @auth
+            <li>
+                <a href="#" class="nav-link text-white">
+                    API доки
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    Ресурсы
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    Бронирования
+                </a>
+            </li>
+        </ul>
+        <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="m-1 p-1 rounded" style="background-color: #198754">
+                        <b>{{ auth()->user()->name }}</b>
                     </div>
-                </div>
-    </nav>
-
-
+                </a>
+                <ul class="dropdown-menu
+                        dropdown-menu-dark text-small shadow"
+                    aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="{{ route('userlist') }}">Персонал</a></li>
+                    <li><a class="dropdown-item" href="#">Приглашения</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
+                </ul>
+            </div>
+        @endauth
+    </div>
 
 
 
