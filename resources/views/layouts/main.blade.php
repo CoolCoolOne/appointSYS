@@ -22,40 +22,47 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{{ route('home') }}" class="nav-link text-white" aria-current="page"> 
+                <a href="{{ route('home') }}" class="nav-link text-white" aria-current="page">
                     Описание
                 </a>
             </li>
             @guest
-            <li class="nav-item">
-                <a href="{{ route('login') }}" class="nav-link text-white" aria-current="page">
-                    Авторизация
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('register') }}" class="nav-link text-white" aria-current="page">
-                    Пригласите меня
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a href="{{ route('login') }}" class="nav-link text-white" aria-current="page">
+                        Авторизация
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('register') }}" class="nav-link text-white" aria-current="page">
+                        Пригласите меня
+                    </a>
+                </li>
             @endguest
             @auth
-            <li>
-                <a href="#" class="nav-link text-white">
-                    API доки
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Ресурсы
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Бронирования
-                </a>
-            </li>
-        </ul>
-        <hr>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        API доки
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('resourses.index') }}" class="nav-link text-white">
+                        Ресурсы
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        @foreach ($resourses->reverse() as $item)
+                            <li class="nav-item ms-4">
+                                <a style="color:gray" class="link-light"  href="#">{{ $item->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white mt-2">
+                        Бронирования
+                    </a>
+                </li>
+            </ul>
+            <hr>
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

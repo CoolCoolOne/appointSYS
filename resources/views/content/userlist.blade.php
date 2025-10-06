@@ -21,7 +21,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->hasVerifiedEmail() }}</td>
-                    <td>В разработке..</td>
+                    <td><a href="#">{{$user->resourses->count()}}</a></td>
                 </tr>
             @endforeach
         </tbody>
