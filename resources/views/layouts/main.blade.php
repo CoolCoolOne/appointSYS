@@ -48,13 +48,7 @@
                     <a href="{{ route('resourses.index') }}" class="nav-link text-white">
                         Ресурсы
                     </a>
-                    <ul class="nav nav-pills flex-column mb-auto">
-                        @foreach ($resourses->reverse() as $item)
-                            <li class="nav-item ms-4">
-                                <a style="color:gray" class="link-light"  href="#">{{ $item->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @include('layouts.parts.menu_onelevel')
                 </li>
                 <li>
                     <a href="#" class="nav-link text-white mt-2">
