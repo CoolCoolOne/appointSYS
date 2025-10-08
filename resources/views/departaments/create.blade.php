@@ -5,10 +5,10 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 offset-md-12">
-            <h1 class="mb-5">Создание ресурса</h1>
+            <h1 class="mb-5">Создание отдела</h1>
 
 
-            <form  action="{{ route('resourses.store') }}" method="post">
+            <form  action="{{ route('departaments.store') }}" method="post">
 
                 @csrf
 

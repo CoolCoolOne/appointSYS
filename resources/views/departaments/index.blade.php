@@ -4,9 +4,9 @@
 
 @section('content')
 
-<a href="{{ route('resourses.create') }}" class="mt-5 text-center">
+<a href="{{ route('departaments.create') }}" class="mt-5 text-center">
                     <button type="submit" class="btn  btn-success">
-                        Новый ресурс
+                        Новый отдел
                     </button>
                 </a>
 
@@ -21,13 +21,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($resourses as $item)
+            @foreach ($departaments as $item)
                 <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
                     <td>{{ $item->name }}</td>
                     <td>В разаработке</td>
 
                     <td>
-                        <form action="{{ route('resourses.destroy', $item) }}" method="post" style="display:inline-block">
+                        <form action="{{ route('departaments.destroy', $item) }}" method="post" style="display:inline-block">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger" onclick="return confirm('Удалить {{$item->name}}?')">Удалить</button>
@@ -41,7 +41,7 @@
 
 
     
-    {{ $resourses->links('pagination::bootstrap-5') }} <!-- Пагинация -->
+    {{ $departaments->links('pagination::bootstrap-5') }} <!-- Пагинация -->
 
 
 

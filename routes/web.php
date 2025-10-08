@@ -4,7 +4,7 @@ use App\Http\Controllers\ContentController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ResourseController;
+use App\Http\Controllers\DepartamentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [
@@ -17,11 +17,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get("userlist", [ContentController::class, 'userlist'])->name('userlist');
 
-    Route::get('/resourses', [ResourseController::class, 'index'])->name('resourses.index');
-    Route::get('/resourses/{resourse}/show', [ResourseController::class, 'show'])->name('resourses.show');
-    Route::get('/resourses/create', [ResourseController::class, 'create'])->name('resourses.create');  
-    Route::post('/resourses', [ResourseController::class, 'store'])->name('resourses.store'); 
-    Route::delete('/resourses/{resourse}', [ResourseController::class, 'destroy'])->name('resourses.destroy'); 
+    Route::get('/departaments', [DepartamentController::class, 'index'])->name('departaments.index');
+    Route::get('/departaments/{departament}/show', [DepartamentController::class, 'show'])->name('departaments.show');
+    Route::get('/departaments/create', [DepartamentController::class, 'create'])->name('departaments.create');  
+    Route::post('/departaments', [DepartamentController::class, 'store'])->name('departaments.store'); 
+    Route::delete('/departaments/{departament}', [DepartamentController::class, 'destroy'])->name('departaments.destroy'); 
 
 });
 

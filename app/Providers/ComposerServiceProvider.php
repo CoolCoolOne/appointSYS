@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-use App\Models\Resourse;
+use App\Models\Departament;
 use Illuminate\Support\Facades;
 
 use Illuminate\Support\ServiceProvider;
@@ -22,7 +22,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Facades\View::composer('layouts.parts.menu_onelevel', function($view) {
-            $view->with(['items' => Resourse::all()]);
+            $view->with(['items' => Departament::all()]);
         });
     }
 }

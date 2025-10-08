@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Resourse;
+use App\Models\Departament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ResourseController extends Controller
+class DepartamentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ResourseController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $resourses = Resourse::latest()->where('user_id', $user_id)->paginate(10); 
-        return view('resourses.index', compact('resourses'));
+        $departaments = Departament::latest()->where('user_id', $user_id)->paginate(10); 
+        return view('departaments.index', compact('departaments'));
     }
 
     /**
@@ -23,7 +23,7 @@ class ResourseController extends Controller
      */
     public function create()
     {
-        return view('resourses.create');
+        return view('departaments.create');
     }
 
     /**
@@ -35,19 +35,19 @@ class ResourseController extends Controller
             'name' => 'required|max:100',
         ]);
         $user_id = Auth::id();
-        Resourse::create([
+        Departament::create([
             'name' => $request['name'],
             'user_id' => $user_id,
         ]);
-        return redirect()->route('resourses.index')->with('success', 'Создан ресурс!');
+        return redirect()->route('departaments.index')->with('success', 'Отдел создан!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Resourse $resourse)
+    public function show(Departament $departament)
     {
-        return view('resourses.show', compact('resourse'));
+        return view('departaments.show', compact('departament'));
     }
 
     /**
@@ -69,10 +69,10 @@ class ResourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Resourse $resourse)
+    public function destroy(Departament $departament)
     {
-        $resourse->delete();
+        $departament->delete();
 
-        return redirect()->route('resourses.index')->with('success', 'Ресурс удален!');
+        return redirect()->route('departaments.index')->with('success', 'Отдел удален!');
     }
 }
