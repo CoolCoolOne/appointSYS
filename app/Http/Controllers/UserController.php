@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Str;
 
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -26,9 +23,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
-        // $request->adminCode = strtolower($request->adminCode);
-        // $request->adminCode = Str::of($request->adminCode)->replaceMatches('/ +/', '');
 
         $request->validate([
             'name' => ['required', 'max:255'],

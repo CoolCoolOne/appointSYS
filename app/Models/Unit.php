@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Departament extends Model
+class Unit extends Model
 {
-    //
     protected $fillable = [
         'name',
         'user_id',
@@ -14,11 +13,6 @@ class Departament extends Model
 
      public function user()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function units()
-    {
-        return $this->hasMany(Unit::class);
+        return $this->belongsTo(Departament::class);
     }
 }

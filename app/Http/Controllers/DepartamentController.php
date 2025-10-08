@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DepartamentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $user_id = Auth::id();
@@ -18,9 +15,7 @@ class DepartamentController extends Controller
         return view('departaments.index', compact('departaments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('departaments.create');
@@ -47,7 +42,8 @@ class DepartamentController extends Controller
      */
     public function show(Departament $departament)
     {
-        return view('departaments.show', compact('departament'));
+        $departament_id = $departament->id;
+        return redirect()->route('unit.index', ['departament_id' => $departament_id]);
     }
 
     /**
