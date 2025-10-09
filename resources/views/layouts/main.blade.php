@@ -46,7 +46,7 @@
                 </li>
                 <li>
                     <a href="{{ route('departaments.index') }}" class="nav-link text-white">
-                        Ресурсы
+                        Отделы
                     </a>
                     @include('layouts.parts.menu_onelevel')
                 </li>

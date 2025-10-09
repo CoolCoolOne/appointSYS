@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartamentController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [
@@ -21,8 +22,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/departaments/{departament}/show', [DepartamentController::class, 'show'])->name('departaments.show');
     Route::get('/departaments/create', [DepartamentController::class, 'create'])->name('departaments.create');  
     Route::post('/departaments', [DepartamentController::class, 'store'])->name('departaments.store'); 
-    Route::delete('/departaments/{departament}', [DepartamentController::class, 'destroy'])->name('departaments.destroy'); 
-
+    Route::delete('/departaments/{departament}', [DepartamentController::class, 'destroy'])->name('departaments.destroy');
+    
+    Route::get('/departaments/{departament}/units', [UnitController::class, 'index'])->name('units.index');  
+    Route::get('/departaments/{departament}/units/create', [UnitController::class, 'create'])->name('units.create'); 
 });
 
 

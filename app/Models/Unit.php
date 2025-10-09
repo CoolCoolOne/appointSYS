@@ -8,7 +8,7 @@ class Unit extends Model
 {
     protected $fillable = [
         'name',
-        'user_id',
+        'departament_id',
     ];
 
      public function user()

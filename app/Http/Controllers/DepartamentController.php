@@ -43,7 +43,8 @@ class DepartamentController extends Controller
     public function show(Departament $departament)
     {
         $departament_id = $departament->id;
-        return redirect()->route('unit.index', ['departament_id' => $departament_id]);
+        
+        return redirect()->route('units.index', ['departament' => $departament_id]);
     }
 
     /**
