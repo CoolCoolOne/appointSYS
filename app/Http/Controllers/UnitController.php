@@ -24,7 +24,8 @@ class UnitController extends Controller
      */
     public function create(int $departament_id)
     {
-        return view('units.create',['departament_id' => $departament_id]);
+        $departament_name = Departament::find($departament_id)->name;
+        return view('units.create',['departament_name'=>$departament_name,'departament_id' => $departament_id]);
     }
 
     /**
