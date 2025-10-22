@@ -5,10 +5,12 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 offset-md-12">
-            <h1 class="mb-5">Создание юнита <br> в отделе:<br><span>{{ $departament_name }}</span></h1>
+            <h1 style="background-color: rgb(32, 32, 40);" class="mb-5 p-2">Создание юнита <br> в
+                отделе:<br><span>{{ $departament_name }}</span></h1>
 
 
-            <form action="{{ route('units.store', ['departament' => $departament_id]) }}" method="post">
+            <form action="{{ route('units.store', ['departament' => $departament_id]) }}" method="post"
+                style="background-color: rgb(32, 32, 40);" class="p-2">
 
                 @csrf
 
@@ -28,10 +30,10 @@
                     <label for="days[]" class="form-label">Дни недели</label>
                     <select name="days[]" multiple class="form-control @error('days[]') is-invalid @enderror"
                         value="{{ old('days[]') }}">
-                        <option value="Mon">
+                        <option class="select_new" value="Mon">
                             Понедельник
                         </option>
-                        <option value="Tue">
+                        <option class="select_new" value="Tue">
                             Вторник
                         </option>
                         <option value="Wed">
@@ -116,4 +118,11 @@
             </form>
         </div>
     </div>
+    {{-- <script>
+        var option = document.querySelector('.select_new');
+        option.addEventListener('click', function() {
+            option.style.backgroundColor = 'rgb(29, 99, 16)';
+            console.log('gerg')
+        });
+    </script> --}}
 @endsection

@@ -26,7 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/departaments/{departament}/units', [UnitController::class, 'index'])->name('units.index');  
     Route::get('/departaments/{departament}/units/create', [UnitController::class, 'create'])->name('units.create'); 
-    Route::get('/departaments/{departament}/units/store', [UnitController::class, 'store'])->name('units.store');
+    Route::post('/departaments/{departament}/units/store', [UnitController::class, 'store'])->name('units.store');
 });
 
 
