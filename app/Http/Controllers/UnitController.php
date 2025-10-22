@@ -40,6 +40,9 @@ class UnitController extends Controller
         $end_time = Carbon::parse($request->end_time);
         $validator_dif = $start_time->diffInMinutes($end_time);
         Validator::make(['time_diffenrence' => $validator_dif], ['time_diffenrence' => 'gt:10',])->validate();
+
+        $start_time = $start_time->format('H:i');
+        $end_time = $end_time->format('H:i');
         
          $request->validate([
             'name' => 'required|max:100',
@@ -58,7 +61,7 @@ class UnitController extends Controller
             'end_time' => $end_time,
             'duration_minutes' => $request['duration_minutes'],
         ]);
-        return redirect()->route('units.index', ['departament_id' => $departament_id])->with('success', 'Юнит создан!');
+        return redirect()->route('units.index', ['departament' => $departament_id])->with('success', 'Юнит создан!');
     }
 
     /**
@@ -90,9 +93,10 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        $departament_id=$unit->departament_id;
+        $departament=$unit->departament_id;
+        dd($departament);
         $unit->delete();
 
-        return redirect()->route('units.index', ['departament_id' => $departament_id])->with('success', 'Юнит удален!');
+        return redirect()->route('units.index', ['departament' => 1])->with('success', 'Юнит удален!');
     }
 }
