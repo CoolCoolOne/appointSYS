@@ -16,15 +16,15 @@
     <table class="table mt-5 alert-info rounded">
         <thead>
             <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
-                <th>Название ресурса</th>
-                <th>Слоты</th>
+                <th>Название отдела</th>
+                <th>Юниты (ресурсы)</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($departaments as $item)
                 <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
                     <td>{{ $item->name }}</td>
-                    <td>В разаработке</td>
+                    <td><a href="{{ route('departaments.show', $item) }}">{{$item->units->count()}}</a</td>
 
                     <td>
                         <form action="{{ route('departaments.destroy', $item) }}" method="post" style="display:inline-block">
