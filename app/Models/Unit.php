@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     * 
+     * 
+     */
     protected $fillable = [
         'name',
         'departament_id',
@@ -14,6 +21,7 @@ class Unit extends Model
         'end_time',
         'duration_minutes'
     ];
+
 
     public function user()
     {

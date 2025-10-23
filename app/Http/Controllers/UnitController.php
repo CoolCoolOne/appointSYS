@@ -91,12 +91,11 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Unit $unit)
+    public function destroy(int $departament_id, Unit $unit)
     {
-        $departament=$unit->departament_id;
-        dd($departament);
+        // dd($unit);
         $unit->delete();
 
-        return redirect()->route('units.index', ['departament' => 1])->with('success', 'Юнит удален!');
+        return redirect()->route('units.index', ['departament' => $departament_id])->with('success', 'Юнит удален!');
     }
 }

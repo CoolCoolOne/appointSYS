@@ -33,7 +33,7 @@
                         <td>{{ $item->start_time }} - {{ $item->end_time }}</td>
                         <td>{{ $item->duration_minutes }} минут</td>
                         <td>
-                            <form action="{{ route('units.destroy', $item) }}" method="post" style="display:inline-block">
+                            <form action="{{ route('units.destroy', [$departament_id,$item]) }}" method="post" style="display:inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger"
