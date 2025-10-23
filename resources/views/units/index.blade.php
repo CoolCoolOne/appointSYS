@@ -7,8 +7,8 @@
 
     <h2 style="background-color: rgb(32, 32, 40);" class="p-2 mb-5 text-center">Отдел: {{ $departament_name }}</h2>
     <h2>{{ $units }}</h2>
-    <a href="{{ route('units.create', $departament_id) }}" class="mt-5 text-center">
-        <button type="submit" class="btn  btn-success">
+    <a href="{{ route('units.create', $departament_id) }}" class=" mb-5 text-center">
+        <button type="submit" class="btn  btn-success container-fluid">
             Новый юнит
         </button>
     </a>
@@ -16,7 +16,7 @@
 
     <br>
     <div style="overflow: auto;">
-        <table class="table mt-5 alert-info rounded">
+        <table class="table mt-2 alert-info rounded">
             <thead>
                 <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
                     <th>Название юнита</th>

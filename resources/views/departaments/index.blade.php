@@ -5,7 +5,7 @@
 @section('content')
 
 <a href="{{ route('departaments.create') }}" class="mt-5 text-center">
-                    <button type="submit" class="btn  btn-success">
+                    <button type="submit" class="btn  btn-success container-fluid">
                         Новый отдел
                     </button>
                 </a>
@@ -13,7 +13,7 @@
 
 <br>
 <div style="overflow: auto;">
-    <table class="table mt-5 alert-info rounded">
+    <table class="table mt-2 alert-info rounded">
         <thead>
             <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
                 <th>Название отдела</th>
