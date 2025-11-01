@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\SlotController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [
@@ -28,6 +29,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/departaments/{departament}/units/create', [UnitController::class, 'create'])->name('units.create'); 
     Route::post('/departaments/{departament}/units/store', [UnitController::class, 'store'])->name('units.store');
     Route::delete('/departaments/{departament}/units/{unit}/destroy', [UnitController::class, 'destroy'])->name('units.destroy');
+
+    Route::get('/departaments/{departament}/units/{unit}/slots/create', [SlotController::class, 'create'])->name('slots.create'); 
+    Route::post('/departaments/units/{unit}/slots/store', [SlotController::class, 'store'])->name('slots.store');
 });
 
 

@@ -24,7 +24,7 @@
             @foreach ($departaments as $item)
                 <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
                     <td>{{ $item->name }}</td>
-                    <td><a href="{{ route('departaments.show', $item) }}">{{$item->units->count()}}</a</td>
+                    <td><a href="{{ route('departaments.show', $item) }}">{{$item->units->count()}}</a></td>
 
                     <td>
                         <form action="{{ route('departaments.destroy', $item) }}" method="post" style="display:inline-block">

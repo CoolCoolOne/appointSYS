@@ -23,6 +23,7 @@
                     <th>Дни активности</th>
                     <th>Время активности</th>
                     <th>Продолжителность</th>
+                    <th>Даты активности</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +34,18 @@
                         <td>{{ $item->start_time }} - {{ $item->end_time }}</td>
                         <td>{{ $item->duration_minutes }} минут</td>
                         <td>
-                            <form action="{{ route('units.destroy', [$departament_id,$item]) }}" method="post" style="display:inline-block">
+                            @if ($item->slots->count() == 0)
+                                Нет дат активности! <br>
+                                <a href="{{ route('slots.create', [$departament_id,$item]) }}">
+                                    <button class="btn btn-success">
+                                        Создать
+                                    </button>
+                                </a>
+                            @endif
+                        </td>
+                        <td>
+                            <form action="{{ route('units.destroy',  [$departament_id,$item]) }}" method="post"
+                                style="display:inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger"
