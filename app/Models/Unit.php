@@ -23,9 +23,19 @@ class Unit extends Model
     ];
 
 
-    public function user()
+    public function departament()
     {
         return $this->belongsTo(Departament::class);
+    }
+
+    public function slots()
+    {
+        return $this->hasMany(Slot::class);
+    }
+
+    public function meetings()
+    {
+        return $this->hasMany(Meeting::class);
     }
 
     public function convertWeekday(string $weekdays)
