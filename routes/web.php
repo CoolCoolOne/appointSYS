@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/departaments/{departament}/units/{unit}/destroy', [UnitController::class, 'destroy'])->name('units.destroy');
 
     Route::get('/departaments/{departament}/units/{unit}/slots/create', [SlotController::class, 'create'])->name('slots.create'); 
-    Route::post('/departaments/units/{unit}/slots/store', [SlotController::class, 'store'])->name('slots.store');
+    Route::post('/departaments/units/slots/store', [SlotController::class, 'store'])->name('slots.store');
 });
 
 

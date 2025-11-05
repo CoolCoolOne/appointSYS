@@ -8,10 +8,12 @@
             <h1 style="background-color: rgb(32, 32, 40);" class="mb-5 p-2">Добавление дат активности<br> для юнита:
                 <span>{{ $unit_name }}</span></h1>
 
-            <form action="{{ route('slots.store', ['unit' => $unit_id]) }}" method="post"
+            <form action="{{ route('slots.store') }}" method="post"
                 style="background-color: rgb(32, 32, 40);" class="p-2">
 
                 @csrf
+
+                <input type="hidden" name="unit_id" value="{{ $unit_id }}">
 
                 <div class="d-flex justify-content-around">
                     <div class="mb-3">
@@ -35,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center mt-2 me-5">*По умолчанию период активности - месяц</div>
+                <div class="d-flex justify-content-center mt-2 me-5">*По умолчанию период активности - неделя</div>
 
                 <div class="mt-5 text-center">
                     <button type="submit" class="btn  btn-light">
