@@ -36,8 +36,6 @@ class SlotController extends Controller
     public function store(Request $request)
     {
 
-        $start = Carbon::parse($request->start_date);
-        $end = Carbon::parse($request->end_date);
 
         // получим массив дней недели юнита в формате чисел
         $unit = Unit::find($request->unit_id);
@@ -52,36 +50,37 @@ class SlotController extends Controller
 
 
 
-        $unit->duration_minutes;
-        $unit->start_time;
-        $unit->end_time;
+        $duration_minutes = $unit->duration_minutes;
+        $unit_start = Carbon::parse($unit->start_time);
+        $unit_end = Carbon::parse($unit->end_time);
 
-        $start = Carbon::parse($request->start_date);
-        $end = Carbon::parse($request->end_date);
+        $period_start = Carbon::parse($request->start_date);
+        $period_end = Carbon::parse($request->end_date);
 
+        $currentDay = $period_start;
         $slots = [];
-
-        while ($start <= $end) {
-            $dayOfWeek = $start->dayOfWeek;
-            if (in_array($dayOfWeek, $activeDays)) {
-                // Добавляем интервал, если он находится в пределах общего диапазона
-                $currentSlotStart = $start->format('Y-m-d H:i:s');
-                $start->add($interval);
-                if ($start <= $end) {
-                    $slots[] = [
-                        'start' => $currentSlotStart,
-                        'end' => $start->format('Y-m-d H:i:s'),
-                    ];
-                } else {
-                    // Если последний интервал выходит за пределы конечной даты
-                    $slots[] = [
-                        'start' => $currentSlotStart,
-                        'end' => $end->format('Y-m-d H:i:s'),
-                    ];
+$i = 0;
+        while ($currentDay <= $period_end) {
+            $dayOfWeek = $currentDay->dayOfWeek;
+            if (in_array($dayOfWeek, $unit_weekdays)) {
+                $time_temp = $unit_start;
+                
+                while ($time_temp <= $unit_end) {
+                    $datetime_temp = $currentDay->addHours($time_temp->hour);
+                    $datetime_temp = $datetime_temp->addMinutes($time_temp->minute);
+                    array_push($slots, $i);
+                    $time_temp->addMinutes($duration_minutes);
+                    if ($i == 1) {
+                        dd($slots);
+                    }
+                    // $i = $i + 1;
                 }
+                // dd($slots);
+                $currentDay->addDay();
+                $i = $i + 1;
             } else {
-                // Пропускаем день, если он неактивный
-                $start->modify('next midnight');
+                // Пропускаем день
+                $currentDay->addDay();
             }
         }
 
