@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slot extends Model
 {
+    protected $fillable = [
+        'slot_datetime',
+        'status',
+        'unit_id',
+    ];
     //
     public function unit()
     {

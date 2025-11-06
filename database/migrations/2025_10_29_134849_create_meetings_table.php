@@ -20,7 +20,7 @@ return new class extends Migration
             // запрещаю удалять клиента, если он забронировал хоть что то. Тут будет many to one
             $table->foreignId('client_id')->constrained()->onUpdate('cascade')->onDelete('restrict');
             $table->time('booked_datetime');
-            $table->integer('status')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

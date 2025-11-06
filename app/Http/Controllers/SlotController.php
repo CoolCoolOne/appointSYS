@@ -6,6 +6,7 @@ use App\Models\Slot;
 use App\Models\Unit;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SlotController extends Controller
 {
@@ -70,12 +71,6 @@ class SlotController extends Controller
         $datetime_oneday_start_swapday = clone $datetime_oneday_start;
         $datetime_oneday_end_swapday = clone $datetime_oneday_end;
 
-        //  print_r($datetime_oneday_start);
-        //                 echo '<br>';
-        //                 print_r($datetime_oneday_end);
-        //                 echo '<br>';
-        //                 dd();
-
         $slots = [];
 
         while ($period_start_clone <= $period_end) {
@@ -85,14 +80,8 @@ class SlotController extends Controller
 
                 while ($datetime_oneday_start < $datetime_oneday_end) {
                     $datetime_oneday_store = clone $datetime_oneday_start;
-                    array_push($slots, $datetime_oneday_store->format('Y-m-d H:i:s'));
-
-                    print_r($datetime_oneday_start);
-                    echo '<br>';
-                    // print_r($datetime_oneday_end);
-                    // echo '<br>';
-                    echo '<hr>';
-
+                    // array_push($slots, $datetime_oneday_store->format('Y-m-d H:i:s'));
+                    $slots[] = ['slot_datetime' => $datetime_oneday_store->format('Y-m-d H:i:s'), 'unit_id' => $request->unit_id];
                     $datetime_oneday_start->addMinutes($duration_minutes);
                 }
 
@@ -100,15 +89,6 @@ class SlotController extends Controller
                 $datetime_oneday_end_swapday->addDay();
                 $datetime_oneday_start = clone $datetime_oneday_start_swapday;
                 $datetime_oneday_end = clone $datetime_oneday_end_swapday;
-
-                echo '<b>';
-                print_r($datetime_oneday_start);
-                echo '<br>';
-                // print_r($datetime_oneday_end);
-                // echo '<br>';
-                echo '<hr>';
-                echo '</b>';
-                // dd();
 
                 $period_start_clone->addDay();
             } else {
@@ -118,19 +98,16 @@ class SlotController extends Controller
                 $datetime_oneday_start = clone $datetime_oneday_start_swapday;
                 $datetime_oneday_end = clone $datetime_oneday_end_swapday;
                 $period_start_clone->addDay();
-                
+
             }
         }
-        echo '<hr>';echo '<hr>';echo '<hr>';
-        echo '<b>';
-                print_r($datetime_oneday_start);
-                echo '<br>';
-                // print_r($datetime_oneday_end);
-                // echo '<br>';
-                echo '<hr>';
-                echo '</b>';
-                // dd();
-        dd($slots);
+
+        DB::transaction(function () use ($slots) {
+            foreach ($slots as $slot) {
+                Slot::create($slot);
+            }
+        });
+
 
     }
 

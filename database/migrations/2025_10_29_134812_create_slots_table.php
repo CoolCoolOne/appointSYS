@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('unit_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->time('slot_datetime');
-            $table->string('status')->default('pending');
+            $table->boolean('is_occupied')->default(false);
             $table->timestamps();
         });
     }
