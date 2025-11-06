@@ -57,32 +57,80 @@ class SlotController extends Controller
         $period_start = Carbon::parse($request->start_date);
         $period_end = Carbon::parse($request->end_date);
 
-        $currentDay = $period_start;
+        $period_start_clone = clone $period_start;
+
+        $datetime_oneday_start = $period_start_clone->addHours($unit_start->hour);
+        $datetime_oneday_start = $datetime_oneday_start->addMinutes($unit_start->minute);
+
+        $period_start_clone = clone $period_start;
+
+        $datetime_oneday_end = $period_start_clone->addHours($unit_end->hour);
+        $datetime_oneday_end = $datetime_oneday_end->addMinutes($unit_end->minute);
+
+        $datetime_oneday_start_swapday = clone $datetime_oneday_start;
+        $datetime_oneday_end_swapday = clone $datetime_oneday_end;
+
+        //  print_r($datetime_oneday_start);
+        //                 echo '<br>';
+        //                 print_r($datetime_oneday_end);
+        //                 echo '<br>';
+        //                 dd();
+
         $slots = [];
-$i = 0;
-        while ($currentDay <= $period_end) {
-            $dayOfWeek = $currentDay->dayOfWeek;
+
+        while ($period_start_clone <= $period_end) {
+            $dayOfWeek = $period_start_clone->dayOfWeek;
             if (in_array($dayOfWeek, $unit_weekdays)) {
-                $time_temp = $unit_start;
-                
-                while ($time_temp <= $unit_end) {
-                    $datetime_temp = $currentDay->addHours($time_temp->hour);
-                    $datetime_temp = $datetime_temp->addMinutes($time_temp->minute);
-                    array_push($slots, $i);
-                    $time_temp->addMinutes($duration_minutes);
-                    if ($i == 1) {
-                        dd($slots);
-                    }
-                    // $i = $i + 1;
+
+
+                while ($datetime_oneday_start < $datetime_oneday_end) {
+                    $datetime_oneday_store = clone $datetime_oneday_start;
+                    array_push($slots, $datetime_oneday_store->format('Y-m-d H:i:s'));
+
+                    print_r($datetime_oneday_start);
+                    echo '<br>';
+                    // print_r($datetime_oneday_end);
+                    // echo '<br>';
+                    echo '<hr>';
+
+                    $datetime_oneday_start->addMinutes($duration_minutes);
                 }
-                // dd($slots);
-                $currentDay->addDay();
-                $i = $i + 1;
+
+                $datetime_oneday_start_swapday->addDay();
+                $datetime_oneday_end_swapday->addDay();
+                $datetime_oneday_start = clone $datetime_oneday_start_swapday;
+                $datetime_oneday_end = clone $datetime_oneday_end_swapday;
+
+                echo '<b>';
+                print_r($datetime_oneday_start);
+                echo '<br>';
+                // print_r($datetime_oneday_end);
+                // echo '<br>';
+                echo '<hr>';
+                echo '</b>';
+                // dd();
+
+                $period_start_clone->addDay();
             } else {
                 // Пропускаем день
-                $currentDay->addDay();
+                $datetime_oneday_start_swapday->addDay();
+                $datetime_oneday_end_swapday->addDay();
+                $datetime_oneday_start = clone $datetime_oneday_start_swapday;
+                $datetime_oneday_end = clone $datetime_oneday_end_swapday;
+                $period_start_clone->addDay();
+                
             }
         }
+        echo '<hr>';echo '<hr>';echo '<hr>';
+        echo '<b>';
+                print_r($datetime_oneday_start);
+                echo '<br>';
+                // print_r($datetime_oneday_end);
+                // echo '<br>';
+                echo '<hr>';
+                echo '</b>';
+                // dd();
+        dd($slots);
 
     }
 
