@@ -15,7 +15,11 @@
                     @foreach ($subitems->reverse() as $subitem)
                         @if ($subitem->departament_id === $item->id)
                             <li class="nav-item">
-                                <p style="" class="link-light dropdown-item">{{ $subitem->name }}</p>
+                                {{-- <p style="" class="link-light dropdown-item">{{ $subitem->id }}</p> --}}
+                                <a style="" class="link-light dropdown-item" 
+                                href="{{ route('slots.index', [$subitem->departament_id, $subitem->id]) }}">
+                                {{ $subitem->name }}
+                                </a>
                             </li>
                         @endif
                     @endforeach

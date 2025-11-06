@@ -13,9 +13,17 @@ class SlotController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(int $departament_id, int $unit_id)
     {
-        //
+        $unit = Unit::find($unit_id);
+        $slots = Slot::all()->where('unit_id', $unit_id);
+        if ($slots->count() === 0) {
+            return redirect()->route('slots.create', [$departament_id, $unit_id])->with('success', 'У юнита нет слотов, создайте их!');
+        } else {
+            return view('slots.index', ['slots' => $slots, 'unit' => $unit]);
+        }
+        ;
+
     }
 
     /**
@@ -108,7 +116,7 @@ class SlotController extends Controller
             }
         });
 
-
+        return redirect()->route('units.index', ['departament' => $unit->departament_id])->with('success', 'Слоты созданы!');
     }
 
     /**

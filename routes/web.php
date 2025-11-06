@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/departaments/{departament}/units/{unit}/slots/create', [SlotController::class, 'create'])->name('slots.create'); 
     Route::post('/departaments/units/slots/store', [SlotController::class, 'store'])->name('slots.store');
+    Route::get('/departaments/{departament}/units/{unit}/slots', [SlotController::class, 'index'])->name('slots.index');
 });
 
 

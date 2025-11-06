@@ -23,7 +23,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Facades\View::composer('layouts.parts.menu_onelevel', function ($view) {
-            $view->with(['items' => Departament::all(), 'subitems' => Unit::select('departament_id', 'name')->get()]);
+            $view->with(['items' => Departament::all(), 'subitems' => Unit::select('departament_id', 'name','id')->get()]);
         });
     }
 }
