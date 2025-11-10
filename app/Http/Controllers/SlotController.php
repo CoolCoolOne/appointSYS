@@ -20,7 +20,33 @@ class SlotController extends Controller
         if ($slots->count() === 0) {
             return redirect()->route('slots.create', [$departament_id, $unit_id])->with('success', 'У юнита нет слотов, создайте их!');
         } else {
-            return view('slots.index', ['slots' => $slots, 'unit' => $unit]);
+
+            $slotsView = $slots->map(function ($slot) {
+                return [
+                    'slot_date' => Carbon::parse($slot->slot_datetime)->format('d.m.Y'),
+                    'slot_weekday' => Carbon::parse($slot->slot_datetime)->shortDayName,
+                    'slot_time' => Carbon::parse($slot->slot_datetime)->format('H:i'),
+                    'is_occupied' => $slot->is_occupied,
+                    'unit_id' => $slot->unit_id,
+                    'id' => $slot->id,
+                ];
+            })->toArray();
+
+            $slot_date_temp = $slotsView[array_key_first($slotsView)]['slot_date'];
+            $i = 0;
+            foreach ($slotsView as $slot) {
+                if ($slot_date_temp === $slot['slot_date']) {
+                    $slot_sort[$slot['slot_date'].' '.$slot['slot_weekday']][] = $slot;
+                } else {
+                    $i++;
+                    $slot_sort[$slot['slot_date'].' '.$slot['slot_weekday']][] = $slot;
+                }
+                $slot_date_temp = $slot['slot_date'];
+            }
+
+            $slotsView = [];
+
+            return view('slots.index', ['slots' => $slot_sort, 'unit' => $unit]);
         }
         ;
 
@@ -32,9 +58,9 @@ class SlotController extends Controller
     public function create(int $departament_id, int $unit_id)
     {
         $currentDate = Carbon::now()->format('Y-m-d');
-        ;
+
         $plusDate = Carbon::now()->addWeek()->format('Y-m-d');
-        ;
+
         $unit_name = Unit::find($unit_id)->name;
         return view('slots.create', ['departament_id' => $departament_id, 'unit_id' => $unit_id, 'unit_name' => $unit_name, 'currentDate' => $currentDate, 'plusDate' => $plusDate]);
     }
