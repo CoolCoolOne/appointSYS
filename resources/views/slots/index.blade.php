@@ -32,14 +32,32 @@
         </table>
     </div>
 
-    <div class="p-2 mb-2 text-center d-flex gap-4" style="background-color: rgb(32, 32, 40);">
+    <style>
+        .scroll-block {}
+.scroll-block::-webkit-scrollbar-track {border-radius: 1px; cursor: pointer;}
+.scroll-block::-webkit-scrollbar {height:  18px; width: 18px; cursor: pointer;}
+ .scroll-block::-webkit-scrollbar-thumb {border-radius: 10px;background: #acafa4; cursor: pointer;}
+
+    </style>
+
+    <div class="p-2 mb-2 text-center d-flex gap-4 scroll-block" style="background-color: rgb(32, 32, 40); overflow: auto; max-height:490px">
 
 
         @foreach ($slots as $key => $days)
+
+
             <div>
-                <p>{{ $key }}</p>
+                <p class="alert alert-success fw-bold">{{ $key }}</p>
                 @foreach ($slots[$key] as $day)
-                    <p>{{ $day['slot_time'] }} <span>занят:{{ $day['is_occupied'] }}</span></p>
+                    <a href="#" @class([
+                        'btn', 
+                        'd-block',
+                        'mb-2',
+                        'btn-success' => !$day['is_occupied'],
+                        'btn-danger' => $day['is_occupied'],
+                    ])>
+                        {{ $day['slot_time'] }}
+                    </a>
 
                 @endforeach
             </div>

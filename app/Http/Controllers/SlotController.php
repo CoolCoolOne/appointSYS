@@ -24,7 +24,7 @@ class SlotController extends Controller
             $slotsView = $slots->map(function ($slot) {
                 return [
                     'slot_date' => Carbon::parse($slot->slot_datetime)->format('d.m.Y'),
-                    'slot_weekday' => Carbon::parse($slot->slot_datetime)->shortDayName,
+                    'slot_weekday' => Carbon::parse($slot->slot_datetime)->minDayName,
                     'slot_time' => Carbon::parse($slot->slot_datetime)->format('H:i'),
                     'is_occupied' => $slot->is_occupied,
                     'unit_id' => $slot->unit_id,
