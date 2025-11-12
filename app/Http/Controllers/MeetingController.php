@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meeting;
+use App\Models\Slot;
 use Illuminate\Http\Request;
 
 class MeetingController extends Controller
@@ -18,9 +19,16 @@ class MeetingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(int $slot_id)
     {
-        //
+        $slot = Slot::find($slot_id);
+        if ($slot->status == 0) {
+            return view('meetings.create', ['slot' => $slot]);
+        } else {
+            dd('stub. На редактирование, тк слот уже занят');
+            // return redirect()->route('meetings.edit', ['' => ]);
+        }
+
     }
 
     /**
@@ -28,7 +36,7 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

@@ -49,7 +49,9 @@
             <div>
                 <p class="alert alert-success fw-bold">{{ $key }}</p>
                 @foreach ($slots[$key] as $day)
-                    <a href="#" @class([
+                    <a href="
+                    {{ route('meetings.create', $day['id']) }}
+                    " @class([
                         'btn', 
                         'd-block',
                         'mb-2',

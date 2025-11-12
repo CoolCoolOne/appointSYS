@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\SlotController;
+use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [
@@ -33,6 +34,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/departaments/{departament}/units/{unit}/slots/create', [SlotController::class, 'create'])->name('slots.create'); 
     Route::post('/departaments/units/slots/store', [SlotController::class, 'store'])->name('slots.store');
     Route::get('/departaments/{departament}/units/{unit}/slots', [SlotController::class, 'index'])->name('slots.index');
+
+    Route::get('/slots/{slot}/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
+    Route::post('/meetings/store', [MeetingController::class, 'store'])->name('meetings.store');
+    
 });
 
 
