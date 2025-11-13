@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Meeting extends Model
 {
-    //
+    protected $fillable = [
+        'unit_id',
+        'slot_id',
+        'client_id',
+        'booked_datetime',
+    ];
+
     public function unit()
     {
         return $this->belongsTo(Unit::class);

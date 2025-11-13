@@ -10,7 +10,7 @@ class Slot extends Model
 {
     protected $fillable = [
         'slot_datetime',
-        'status',
+        'is_occupied',
         'unit_id',
     ];
     //

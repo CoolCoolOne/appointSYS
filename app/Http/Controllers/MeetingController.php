@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meeting;
+use App\Models\Client;
 use App\Models\Slot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,7 @@ class MeetingController extends Controller
     public function create(int $slot_id)
     {
         $slot = Slot::find($slot_id);
-        if ($slot->status == 0) {
+        if ($slot->is_occupied == 0) {
             return view('meetings.create', ['slot' => $slot]);
         } else {
             dd('stub. На редактирование, тк слот уже занят');
@@ -57,12 +58,47 @@ class MeetingController extends Controller
         ]);
         $bookinfo["phone"] = $phone;
 
-        dd($bookinfo);
+        DB::transaction(function () use ($bookinfo) {
 
-        DB::transaction(function () {
+            //client
+            $client = Client::where('phone', $bookinfo["phone"])->first();
+            if ($client) {
+                if ($client->name != $bookinfo["name"]) {
+                    $client->update([
+                        'name_addition' => $bookinfo["name"],
+                    ]);
+                } elseif ($client->email != $bookinfo["email"]) {
+                    $client->update([
+                        'email_addition' => $bookinfo["email"],
+                    ]);
+                }
+            } else {
+                $client = Client::create([
+                    'name' => $bookinfo['name'],
+                    'email' => $bookinfo['name'],
+                    'phone' => $bookinfo['name'],
+                ]);
+            }
 
+            //meeting
+            Meeting::create([
+                'unit_id' => $bookinfo['unit_id'],
+                'slot_id' => $bookinfo['slot_id'],
+                'client_id' => $client->id,
+                'booked_datetime' => $bookinfo['booked_datetime'],
+                'status' => $bookinfo['status'],
+            ]);
+
+            //slot
+            $slot = Slot::find($bookinfo['slot_id']);
+            $slot->update([
+                'is_occupied' => true,
+            ]);
 
         });
+
+        $slot = Slot::find($bookinfo['slot_id']);
+        return redirect()->route('slots.index', ['departament' => $slot->unit->departament_id, 'unit' => $slot->unit_id])->with('success', 'Встреча создана!');
 
     }
 

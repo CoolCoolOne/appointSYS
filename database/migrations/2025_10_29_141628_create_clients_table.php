@@ -20,6 +20,8 @@ return new class extends Migration
             // Иначе будем создавать!
             $table->string('email')->nullable();
             $table->string('phone');
+            $table->string('name_addition')->nullable();
+            $table->string('email_addition')->nullable();
         });
     }
 
