@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Meeting;
 use App\Models\Slot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class MeetingController extends Controller
 {
@@ -36,7 +38,32 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
+
+        $phone = str_replace(['(', ')', ' ', '-'], '', $request->phone);
+        Validator::make(['phone' => $phone], ['phone' => 'required|regex:/[0-9]{9}$/',])->validate();
+        if ($phone[0] == 8) {
+            $phone = substr_replace($phone, "+7", 0, 1);
+        }
+
+
+        $bookinfo = $request->validate([
+            'status' => 'required',
+            'unit_id' => 'required',
+            'slot_id' => 'required',
+            'booked_datetime' => 'required',
+            'name' => 'required|max:100',
+            'email' => 'email',
+        ]);
+        $bookinfo["phone"] = $phone;
+
+        dd($bookinfo);
+
+        DB::transaction(function () {
+
+
+        });
+
     }
 
     /**

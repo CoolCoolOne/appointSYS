@@ -25,7 +25,11 @@
 
                 @csrf
 
-                {{-- <input type="hidden" name="unit_id" value="{{ $unit_id }}"> --}}
+                <input type="hidden" name="unit_id" value="{{ $slot->unit_id }}">
+
+                <input type="hidden" name="slot_id" value="{{ $slot->id }}">
+
+                <input type="hidden" name="booked_datetime" value="{{ $slot->slot_datetime }}">
 
                 <label for="name" class="form-label">Имя клиента</label>
                 <input name='name' type="name" class="form-control @error('name') is-invalid @enderror" id="name"
@@ -37,7 +41,7 @@
 
                 <label class="mt-3" for="phone" class="form-label">Телефон</label>
                 <input name='phone' type="phone" class="form-control @error('phone') is-invalid @enderror" id="phone"
-                    placeholder="номер телефона в формате 8..." value="{{ old('phone') }}">
+                    placeholder="номер телефона" value="{{ old('phone') }}">
 
                 @error('phone')
                     <div class="invalid-feedback">{{ $message }}</div>
