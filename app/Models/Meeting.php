@@ -13,6 +13,7 @@ class Meeting extends Model
         'slot_id',
         'client_id',
         'booked_datetime',
+        'status',
     ];
 
     public function unit()
@@ -24,6 +25,11 @@ class Meeting extends Model
     public function slot()
     {
         return $this->belongsTo(Slot::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 
     // public function slot(): HasOneThrough

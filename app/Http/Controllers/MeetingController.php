@@ -28,8 +28,7 @@ class MeetingController extends Controller
         if ($slot->is_occupied == 0) {
             return view('meetings.create', ['slot' => $slot]);
         } else {
-            dd('stub. На редактирование, тк слот уже занят');
-            // return redirect()->route('meetings.edit', ['' => ]);
+            return redirect()->route('meetings.show', ['slot' => $slot_id]);
         }
 
     }
@@ -57,7 +56,6 @@ class MeetingController extends Controller
             'email' => 'email',
         ]);
         $bookinfo["phone"] = $phone;
-
         DB::transaction(function () use ($bookinfo) {
 
             //client
@@ -67,7 +65,8 @@ class MeetingController extends Controller
                     $client->update([
                         'name_addition' => $bookinfo["name"],
                     ]);
-                } elseif ($client->email != $bookinfo["email"]) {
+                }
+                if ($client->email != $bookinfo["email"]) {
                     $client->update([
                         'email_addition' => $bookinfo["email"],
                     ]);
@@ -75,8 +74,8 @@ class MeetingController extends Controller
             } else {
                 $client = Client::create([
                     'name' => $bookinfo['name'],
-                    'email' => $bookinfo['name'],
-                    'phone' => $bookinfo['name'],
+                    'email' => $bookinfo['email'],
+                    'phone' => $bookinfo['phone'],
                 ]);
             }
 
@@ -105,9 +104,12 @@ class MeetingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(meeting $meeting)
+    public function show(int $slot_id)
     {
-        //
+        $meeting = Meeting::where('slot_id', $slot_id)->first();
+        // $client = Slot::find($slot_id);
+        // dd($meeting->client);
+        return view('meetings.show', ['meeting' => $meeting]);
     }
 
     /**
