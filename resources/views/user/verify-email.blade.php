@@ -4,11 +4,11 @@
 
 @section('content')
     <div class="alert alert-info" role="alert">
+        <h3>Чтобы завершить регистрацию и получить доступ свяжитесь с администратором!</h3>
 
-        Спасиб за регистрацию! Чтобы завершить регистрацию пройдите по ссылке, которая придёт на вашу почту
 
     </div>
-    <div>
+    {{-- <div>
         Вы не получили письмо? Тогда...
          <form method="post" action="{{ route('verification.send') }}">
             @csrf
@@ -16,5 +16,5 @@
 
         </form>
 
-    </div>
+    </div> --}}
 @endsection

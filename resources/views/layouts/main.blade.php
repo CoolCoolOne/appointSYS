@@ -68,7 +68,6 @@
                         dropdown-menu-dark text-small shadow"
                     aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item" href="{{ route('userlist') }}">Персонал</a></li>
-                    <li><a class="dropdown-item" href="#">Приглашения</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>

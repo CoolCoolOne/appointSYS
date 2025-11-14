@@ -19,6 +19,8 @@ Route::get("/", [
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get("userlist", [ContentController::class, 'userlist'])->name('userlist');
+    Route::delete('/userlist/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/userlist/{user}/verify', [UserController::class, 'verify_manualy'])->name('verify_manualy');
 
     Route::get('/departaments', [DepartamentController::class, 'index'])->name('departaments.index');
     Route::get('/departaments/{departament}/show', [DepartamentController::class, 'show'])->name('departaments.show');

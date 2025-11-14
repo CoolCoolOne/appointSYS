@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 
 class UserController extends Controller
@@ -123,6 +124,27 @@ class UserController extends Controller
             : back()->withErrors(['email' => [__($status)]]);
     }
 
+    public function destroy(User $user)
+    {
+        if ($user->email_verified_at !== null) {
+            abort(404, 'Can not delete verified user!');
+        }
+
+        $user->delete();
+
+        return redirect()->route('userlist')->with('success', 'Пользователь удален!');
+    }
+
+    public function verify_manualy(User $user)
+    {
+        if ($user->email_verified_at !== null) {
+            abort(404, 'Can not verify verified user!');
+        }
+        $user->markEmailAsVerified();
+
+
+        return redirect()->route('userlist')->with('success', 'Пользователь верифицирован!');
+    }
 
 
 }
