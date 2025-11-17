@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 return new class extends Migration {
     /**
      * Run the migrations.
@@ -13,7 +14,7 @@ return new class extends Migration {
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('unit_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->time('slot_datetime');
+            $table->datetime('slot_datetime');
             $table->boolean('is_occupied')->default(false);
             $table->timestamps();
         });
@@ -25,5 +26,6 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('slots');
+        
     }
 };

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+// use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->foreignId('slot_id')->constrained()->onUpdate('cascade')->onDelete('set null');
             // запрещаю удалять клиента, если он забронировал хоть что то. Тут будет many to one
             $table->foreignId('client_id')->constrained()->onUpdate('cascade')->onDelete('restrict');
-            $table->time('booked_datetime');
+            $table->datetime('booked_datetime');
             $table->string('status')->default('pending');
             $table->timestamps();
         });
@@ -30,6 +31,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // DB::statement('PRAGMA foreign_keys = OFF;');
         Schema::dropIfExists('meetings');
+        // DB::statement('PRAGMA foreign_keys = ON;');
+
     }
 };

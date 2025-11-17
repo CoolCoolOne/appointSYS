@@ -16,7 +16,7 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $meetings = Meeting::latest()->paginate(12); 
+        $meetings = Meeting::orderBy('slot_datetime', 'asc')->paginate(12); 
         return view('meetings.index', ['meetings' => $meetings]);
     }
 

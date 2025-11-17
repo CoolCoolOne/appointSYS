@@ -26,7 +26,11 @@
             <tbody>
                 @foreach ($meetings as $meeting)
                     <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
-                        <td>{{ $meeting->slot->unit->name }}</td>
+                        <td>
+                            <a style="color: black; text-decoration: none " href="{{ route('slots.index', [$meeting->slot->unit->departament_id, $meeting->slot->unit->id]) }}">
+                                {{ $meeting->slot->unit->name }}
+                            </a>
+                        </td>
                         @php
                             $slot_datetime = Carbon::parse($meeting->booked_datetime);
                             $slot_date = $slot_datetime->format('d.m.Y');
@@ -57,4 +61,6 @@
             </tbody>
         </table>
     </div>
+
+    {{ $meetings->links('pagination::bootstrap-5') }} <!-- Пагинация -->
 @endsection
