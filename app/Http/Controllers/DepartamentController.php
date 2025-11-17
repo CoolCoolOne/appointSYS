@@ -11,7 +11,7 @@ class DepartamentController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $departaments = Departament::latest()->where('user_id', $user_id)->paginate(10); 
+        $departaments = Departament::latest()->paginate(10); 
         return view('departaments.index', compact('departaments'));
     }
 

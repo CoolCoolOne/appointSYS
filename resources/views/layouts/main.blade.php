@@ -51,8 +51,8 @@
                     @include('layouts.parts.menu_onelevel')
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white mt-2">
-                        Бронирования
+                    <a href="{{ route('meetings.index') }}" class="nav-link text-white mt-2">
+                        Встречи
                     </a>
                 </li>
             </ul>

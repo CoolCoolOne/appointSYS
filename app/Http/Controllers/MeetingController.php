@@ -16,7 +16,8 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        //
+        $meetings = Meeting::latest()->paginate(12); 
+        return view('meetings.index', ['meetings' => $meetings]);
     }
 
     /**

@@ -11,8 +11,8 @@ class Client extends Model
         'phone',
         'name',
         'email',
-        'name_additional',
-        'email_additional',
+        'name_addition',
+        'email_addition',
     ];
     public function meetings()
     {

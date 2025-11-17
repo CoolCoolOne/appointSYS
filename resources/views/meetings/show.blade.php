@@ -25,14 +25,14 @@
                     Клиент: {{ $meeting->client->name }}<br>
                     Телефон: {{ $meeting->client->phone }}<br>
                     Почта: {{ $meeting->client->email }}<br>
-                    @if ($meeting->client->name_additional)
+                    @if ($meeting->client->name_addition)
                         {
-                        ФИО (дубль): {{ $meeting->client->name_additional }}
+                        ФИО (дубль): {{ $meeting->client->name_addition }}
                         }<br>
                     @endif
-                    @if ($meeting->client->email_additional)
+                    @if ($meeting->client->email_addition)
                         {
-                        ФИО (дубль): {{ $meeting->client->email_additional }}
+                        ФИО (дубль): {{ $meeting->client->email_addition }}
                         }
                     @endif
                 </span>

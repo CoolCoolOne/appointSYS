@@ -40,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/slots/{slot}/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
     Route::post('/meetings/store', [MeetingController::class, 'store'])->name('meetings.store');
     Route::get('/slots/{slot}/meetings/show', [MeetingController::class, 'show'])->name('meetings.show');
+    Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
     
 });
 
