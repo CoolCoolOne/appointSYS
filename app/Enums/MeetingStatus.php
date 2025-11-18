@@ -15,4 +15,15 @@ enum MeetingStatus: string
             'enums.booking_statuses.' . $this->value
         );
     }
+
+        public function bootstrapClass(): string
+    {
+        return match ($this->value) {
+            self::PENDING->value   => 'table-warning',
+            self::CONFIRMED->value => 'table-success', 
+            self::CANCELLED->value => 'table-danger', 
+            self::COMPLETED->value => 'table-info',   
+            default                => 'alert-info', 
+        };
+    }
 }

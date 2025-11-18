@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\MeetingStatus;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 // use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Meeting extends Model
@@ -40,4 +41,10 @@ class Meeting extends Model
     protected $casts = [
         'status' => MeetingStatus::class,
     ];
+
+    public function scopeWhereDay($query, string $dateValue)
+    {
+        $date = Carbon::parse($dateValue);
+        return $query->whereDate('booked_datetime', $date);
+    }
 }

@@ -8,6 +8,8 @@ use App\Models\Slot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class MeetingController extends Controller
 {
@@ -16,8 +18,25 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $meetings = Meeting::orderBy('slot_datetime', 'asc')->paginate(12); 
+
+        $baseQuery = Meeting::with(['slot.unit.departament', 'client']);
+
+
+        $meetings = QueryBuilder::for($baseQuery)
+            ->allowedFilters([
+                AllowedFilter::exact('unit_name', 'slot.unit.name'),
+                AllowedFilter::scope('day', 'WhereDay'),
+                'status',
+                AllowedFilter::exact('client_phone', 'client.phone'),
+            ])
+            ->allowedSorts('booked_datetime', 'status')
+            ->defaultSort('booked_datetime')
+            ->paginate(8);
+
+        $meetings->appends(request()->query());
+
         return view('meetings.index', ['meetings' => $meetings]);
+
     }
 
     /**

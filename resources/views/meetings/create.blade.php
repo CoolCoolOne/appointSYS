@@ -49,7 +49,7 @@
 
                 <label class="mt-3" for="email" class="form-label">Email</label>
                 <input name='email' type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                    placeholder="Почтовый адрес (необяз.)" value="{{ old('email') }}">
+                    placeholder="Почтовый адрес" value="{{ old('email') }}">
 
                 @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>
