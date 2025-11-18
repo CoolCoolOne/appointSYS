@@ -8,4 +8,11 @@ enum MeetingStatus: string
     case CONFIRMED = 'confirmed';
     case CANCELLED = 'cancelled';
     case COMPLETED = 'completed';
+
+    public function label(): string
+    {
+        return __(
+            'enums.booking_statuses.' . $this->value
+        );
+    }
 }

@@ -6,6 +6,7 @@
 
     @php
         use Carbon\Carbon;
+        use App\Enums\MeetingStatus;
     @endphp
 
     <h2 style="background-color: rgb(32, 32, 40);" class="p-2 mb-2 text-center">Встречи</h2>
@@ -27,7 +28,8 @@
                 @foreach ($meetings as $meeting)
                     <tr style="border-color: rgb(131, 31, 31); border-style: solid; border-width: 4px;">
                         <td>
-                            <a style="color: black; text-decoration: none " href="{{ route('slots.index', [$meeting->slot->unit->departament_id, $meeting->slot->unit->id]) }}">
+                            <a style="color: black; text-decoration: none "
+                                href="{{ route('slots.index', [$meeting->slot->unit->departament_id, $meeting->slot->unit->id]) }}">
                                 {{ $meeting->slot->unit->name }}
                             </a>
                         </td>
@@ -41,7 +43,7 @@
                         <td>{{ $meeting->client->name }}</td>
                         <td>{{ $meeting->client->phone }}</td>
                         <td>{{ $meeting->client->email }}</td>
-                        <td> {{ $meeting->status }}</td>
+                        <td> {{ $meeting->status->label() }}</td>
                         <td>
                             <a href="#">
                                 <button class="btn btn-warning">

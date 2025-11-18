@@ -37,10 +37,7 @@ class Meeting extends Model
     //     return $this->hasOneThrough(Meeting::class, Unit::class);
     // }
 
-    protected function casts(): array
-    {
-        return [
-            'status' => MeetingStatus::class,
-        ]; 
-    }
+    protected $casts = [
+        'status' => MeetingStatus::class,
+    ];
 }
