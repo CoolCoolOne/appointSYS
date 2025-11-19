@@ -16,14 +16,19 @@ enum MeetingStatus: string
         );
     }
 
-        public function bootstrapClass(): string
+    public function bootstrapClass(): string
     {
         return match ($this->value) {
-            self::PENDING->value   => 'table-warning',
-            self::CONFIRMED->value => 'table-success', 
-            self::CANCELLED->value => 'table-danger', 
-            self::COMPLETED->value => 'table-info',   
-            default                => 'alert-info', 
+            self::PENDING->value => 'table-warning',
+            self::CONFIRMED->value => 'table-success',
+            self::CANCELLED->value => 'table-danger',
+            self::COMPLETED->value => 'table-info',
+            default => 'alert-info',
         };
+    }
+
+    public function isFinished(): bool
+    {
+        return in_array($this, [self::COMPLETED, self::CANCELLED]);
     }
 }

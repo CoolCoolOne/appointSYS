@@ -45,15 +45,20 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('meetings.index') }}" class="nav-link text-white mt-1">
+                        Встречи
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('clients.index') }}" class="nav-link text-white mt-1">
+                        Клиенты
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('departaments.index') }}" class="nav-link text-white">
                         Отделы
                     </a>
                     @include('layouts.parts.menu_onelevel')
-                </li>
-                <li>
-                    <a href="{{ route('meetings.index') }}" class="nav-link text-white mt-2">
-                        Встречи
-                    </a>
                 </li>
             </ul>
             <hr>

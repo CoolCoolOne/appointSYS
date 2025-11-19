@@ -8,6 +8,7 @@ use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [
@@ -41,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/meetings/store', [MeetingController::class, 'store'])->name('meetings.store');
     Route::get('/slots/{slot}/meetings/show', [MeetingController::class, 'show'])->name('meetings.show');
     Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
+
+    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
     
 });
 
