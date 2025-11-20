@@ -15,7 +15,6 @@
                     @foreach ($subitems->reverse() as $subitem)
                         @if ($subitem->departament_id === $item->id)
                             <li class="nav-item">
-                                {{-- <p style="" class="link-light dropdown-item">{{ $subitem->id }}</p> --}}
                                 <a style="" class="link-light dropdown-item" 
                                 href="{{ route('slots.index', [$subitem->departament_id, $subitem->id]) }}">
                                 {{ $subitem->name }}
@@ -30,7 +29,7 @@
             </div>
         </li>
     @endforeach
-    <li class="nav-item ms-4 dropdown mt-2">
+    <li class="nav-item ms-4 dropdown">
         <a style="color:rgb(228, 228, 228)" class="link-light"
             href="{{ route('departaments.create') }}"><b>+</b> новый</a>
     </li>

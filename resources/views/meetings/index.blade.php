@@ -14,9 +14,19 @@
         $filteredDayValue = isset($currentFilters['day']) ? $currentFilters['day'] : Carbon::today()->format('Y-m-d');
         $currentStatusFilter = $currentFilters['status'] ?? '';
 
+        $viewMode = request()->query('view_mode', '');
+
+        if ($viewMode === 'upcoming') {
+            $titleText = 'Встречи (предстоящие)';
+        } elseif ($viewMode === 'archive') {
+            $titleText = 'Встречи (архивные)';
+        } else {
+            $titleText = 'Встречи';
+        }
+
     @endphp
 
-    <h2 style="background-color: rgb(32, 32, 40);" class="p-2 mb-2 text-center">Встречи</h2>
+    <h2 style="background-color: rgb(32, 32, 40);" class="p-2 mb-2 text-center">{{ $titleText }}</h2>
 
     <form method="GET" action="{{ route('meetings.index') }}" class="mb-2 p-3" style="background-color: rgb(32, 32, 40);">
         <div class="row g-3">

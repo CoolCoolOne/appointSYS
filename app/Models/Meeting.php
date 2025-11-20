@@ -47,4 +47,17 @@ class Meeting extends Model
         $date = Carbon::parse($dateValue);
         return $query->whereDate('booked_datetime', $date);
     }
+
+    public function scopeWhereDateBefore($query, $datetime)
+    {
+        $dateTime = Carbon::parse($datetime);
+        return $query->where('booked_datetime', '<=', $dateTime);
+    }
+
+
+    public function scopeWhereDateAfter($query, $datetime)
+    {
+        $dateTime = Carbon::parse($datetime);
+        return $query->where('booked_datetime', '>=', $dateTime);
+    }
 }

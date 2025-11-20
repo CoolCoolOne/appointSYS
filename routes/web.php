@@ -20,6 +20,7 @@ Route::get("/", [
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get("userlist", [ContentController::class, 'userlist'])->name('userlist');
+    Route::get("api_docs", [ContentController::class, 'api_docs'])->name('api_docs');
     Route::delete('/userlist/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
     Route::post('/userlist/{user}/verify', [UserController::class, 'verify_manualy'])->name('verify_manualy');
 

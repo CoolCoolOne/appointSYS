@@ -11,6 +11,23 @@
 
 </head>
 
+@php
+    use Carbon\Carbon;
+    $currentTimePlusPeriod = Carbon::now()->addHour()->format('d.m.Y H:i');
+    $futureMeetings = route('meetings.index', [
+        'filter' => [
+            'after_datetime' => $currentTimePlusPeriod,
+        ], 
+        'view_mode' => 'upcoming'
+    ]);
+    $pastMeetings = route('meetings.index', [
+        'filter' => [
+            'before_datetime' => $currentTimePlusPeriod,
+        ], 
+        'view_mode' => 'archive'
+    ]);
+@endphp
+
 <body class="bg-dark text-light custom_main_bg d-flex">
 
 
@@ -40,7 +57,7 @@
             @endguest
             @auth
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ route('api_docs') }}" class="nav-link text-white">
                         API доки
                     </a>
                 </li>
@@ -48,14 +65,30 @@
                     <a href="{{ route('meetings.index') }}" class="nav-link text-white mt-1">
                         Встречи
                     </a>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item ms-4 dropdown ">
+                            <a style="color:rgb(228, 228, 228)" class="link-light"
+                                href="{{ $futureMeetings }}">
+                                Предстоящие
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item ms-4 dropdown mt-1">
+                            <a style="color:rgb(228, 228, 228)" class="link-light"
+                                href="{{ $pastMeetings }}">
+                                Архивные
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="{{ route('clients.index') }}" class="nav-link text-white mt-1">
+                    <a href="{{ route('clients.index') }}" class="nav-link text-white mt-3">
                         Клиенты
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('departaments.index') }}" class="nav-link text-white">
+                    <a href="{{ route('departaments.index') }}" class="nav-link text-white mt-1">
                         Отделы
                     </a>
                     @include('layouts.parts.menu_onelevel')

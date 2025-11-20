@@ -28,6 +28,8 @@ class MeetingController extends Controller
                 AllowedFilter::scope('day', 'WhereDay'),
                 'status',
                 AllowedFilter::exact('client_phone', 'client.phone'),
+                AllowedFilter::scope('before_datetime', 'WhereDateBefore'),
+                AllowedFilter::scope('after_datetime', 'WhereDateAfter'),
             ])
             ->allowedSorts('booked_datetime', 'status')
             ->defaultSort('booked_datetime')
