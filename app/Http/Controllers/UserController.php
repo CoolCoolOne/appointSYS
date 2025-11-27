@@ -146,6 +146,19 @@ class UserController extends Controller
         return redirect()->route('userlist')->with('success', 'Пользователь верифицирован!');
     }
 
+        public function generateToken(Request $request)
+    {
+        $user = $request->user();
+
+        $user->tokens()->delete();
+
+        $token = $user->createToken('api-access-token')->plainTextToken;
+
+        return redirect()->route('api_docs')->with([
+            'api_token' => $token,
+        ]);
+    }
+
 
 }
 
