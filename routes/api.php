@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\DepartamentController;
+use App\Http\Controllers\Api\UnitController;
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -14,6 +15,12 @@ Route::middleware('auth:sanctum')->group(function () {
             'user' => $request->user(),
         ]);
     });
+
+    Route::get('/departaments', [DepartamentController::class, 'index']);
+
+
+    Route::get('/departaments/{departmentId}/units', [UnitController::class, 'unitsByDepartment']);
+
 
 
 
