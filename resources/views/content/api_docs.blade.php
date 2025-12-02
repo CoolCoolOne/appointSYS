@@ -34,5 +34,20 @@
         </button>
     </form>
 
+    <div class="p-1 shadow-sm rounded mt-3" style="background-color: rgb(32, 32, 40);">
+            <h2>Виджет бронирования: (тест)</h2>
+            
+            <!-- ТЕГ IFRAME ДЛЯ ВСТРОЙКИ -->
+            <!-- Используем класс img-fluid для адаптивности iframe -->
+            <iframe 
+                src="http://127.0.0.1:8000/viget/test.html" 
+                frameborder="0" 
+                width="100%" 
+                height="800px"
+                title="Виджет бронирования юнитов"
+                class=""> <!-- img-fluid делает iframe адаптивным по ширине -->
+            </iframe>
+        </div>
+
 
 @endsection

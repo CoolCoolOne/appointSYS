@@ -33,6 +33,11 @@ class Unit extends Model
         return $this->hasMany(Slot::class);
     }
 
+    public function freeSlots()
+    {
+        return $this->hasMany(Slot::class)->where('is_occupied', false);
+    }
+
     public function meetings()
     {
         return $this->hasMany(Meeting::class);

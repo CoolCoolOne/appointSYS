@@ -21,23 +21,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get("userlist", [ContentController::class, 'userlist'])->name('userlist');
     Route::get("api_docs", [ContentController::class, 'api_docs'])->name('api_docs');
+    Route::get('/viget/test.html', function () {
+        return view('viget.test');
+    });
     Route::post('/api_doc/api-token/generate', [UserController::class, 'generateToken'])->name('generate-api-token');
-    
+
     Route::delete('/userlist/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
     Route::post('/userlist/{user}/verify', [UserController::class, 'verify_manualy'])->name('verify_manualy');
 
     Route::get('/departaments', [DepartamentController::class, 'index'])->name('departaments.index');
     Route::get('/departaments/{departament}/show', [DepartamentController::class, 'show'])->name('departaments.show');
-    Route::get('/departaments/create', [DepartamentController::class, 'create'])->name('departaments.create');  
-    Route::post('/departaments', [DepartamentController::class, 'store'])->name('departaments.store'); 
+    Route::get('/departaments/create', [DepartamentController::class, 'create'])->name('departaments.create');
+    Route::post('/departaments', [DepartamentController::class, 'store'])->name('departaments.store');
     Route::delete('/departaments/{departament}', [DepartamentController::class, 'destroy'])->name('departaments.destroy');
-    
-    Route::get('/departaments/{departament}/units', [UnitController::class, 'index'])->name('units.index');  
-    Route::get('/departaments/{departament}/units/create', [UnitController::class, 'create'])->name('units.create'); 
+
+    Route::get('/departaments/{departament}/units', [UnitController::class, 'index'])->name('units.index');
+    Route::get('/departaments/{departament}/units/create', [UnitController::class, 'create'])->name('units.create');
     Route::post('/departaments/{departament}/units/store', [UnitController::class, 'store'])->name('units.store');
     Route::delete('/departaments/{departament}/units/{unit}/destroy', [UnitController::class, 'destroy'])->name('units.destroy');
 
-    Route::get('/departaments/{departament}/units/{unit}/slots/create', [SlotController::class, 'create'])->name('slots.create'); 
+    Route::get('/departaments/{departament}/units/{unit}/slots/create', [SlotController::class, 'create'])->name('slots.create');
     Route::post('/departaments/units/slots/store', [SlotController::class, 'store'])->name('slots.store');
     Route::get('/departaments/{departament}/units/{unit}/slots', [SlotController::class, 'index'])->name('slots.index');
 
@@ -47,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
 
     Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-    
+
 });
 
 

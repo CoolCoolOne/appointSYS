@@ -15,15 +15,15 @@ class UnitController extends Controller
     public function unitsByDepartment($departmentId)
     {
         // Находим департамент и загружаем связанные с ним юниты
-        $department = Departament::findOrFail($departmentId);
-        $units = $department->units()->get();
+        $departament = Departament::findOrFail($departmentId);
+        $units = $departament->units()->with('freeSlots')->get();
         
         // Используем UnitResource для форматирования коллекции
         return UnitResource::collection($units)
             ->additional([
                 'meta' => [
-                    'department_id' => $department->id,
-                    'department_name' => $department->name,
+                    'departament_id' => $departament->id,
+                    'departament_name' => $departament->name,
                 ]
             ]);
     }

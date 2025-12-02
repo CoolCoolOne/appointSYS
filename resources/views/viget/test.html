@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование юнитов и слотов</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .unit-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .unit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-selector {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .time-slot-btn {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .time-slot-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .time-slot-btn.selected {
+            background-color: #28a745;
+        }
+
+        .no-slots {
+            color: #888;
+            font-style: italic;
+        }
+
+        .error {
+            color: red;
+            padding: 10px;
+            background-color: #ffe5e5;
+            border: 1px solid red;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Доступные юниты и слоты</h2>
+        <div id="app-container">
+            Загрузка данных...
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/departaments/2/units';
+        // const API_URL = 'http://127.0.0.1:8000/api/departaments/2/units';
+        const appContainer = document.getElementById('app-container');
+
+
+        // !!! Ваш токен аутентификации !!!
+        const AUTH_TOKEN = '14|MtnJExBclsF6rjeu1VfO364tHf45DaSQhU564kFa3093846e';
+
+        async function fetchData() {
+            try {
+                // Добавляем объект конфигурации к fetch
+                const response = await fetch(API_URL, {
+                    method: 'GET', // Обычно GET используется по умолчанию, но можно указать явно
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${AUTH_TOKEN}` // !!! Добавляем заголовок Bearer Token !!!
+                    }
+                });
+
+                if (!response.ok) {
+                    // Если ответ 401, вы можете обработать это здесь
+                    if (response.status === 401) {
+                        throw new Error('Ошибка авторизации (401). Проверьте токен.');
+                    }
+                    throw new Error('Сетевая ошибка: ' + response.statusText);
+                }
+
+                const data = await response.json();
+                displayUnits(data.data);
+
+            } catch (error) {
+                console.error('There has been a problem with your fetch operation:', error);
+                appContainer.innerHTML = `<div class="error">Ошибка загрузки данных: ${error.message}</div>`;
+            }
+        }
+
+        function displayUnits(units) {
+            appContainer.innerHTML = ''; // Очищаем "Загрузка данных..."
+
+            units.forEach(unit => {
+                const unitCard = document.createElement('div');
+                unitCard.className = 'unit-card';
+                unitCard.innerHTML = `
+                    <div class="unit-header">
+                        <h2>${unit.name}</h2>
+                        <span>Длительность: ${unit.duration_minutes} мин</span>
+                    </div>
+                    <div id="unit-${unit.id}-controls">
+                        <!-- Здесь будут элементы управления -->
+                    </div>
+                `;
+                appContainer.appendChild(unitCard);
+
+                if (Object.keys(unit.slots_by_date).length > 0) {
+                    renderUnitControls(unit);
+                } else {
+                    document.getElementById(`unit-${unit.id}-controls`).innerHTML = '<p class="no-slots">Нет свободных слотов</p>';
+                }
+            });
+        }
+
+        function renderUnitControls(unit) {
+            const controlsContainer = document.getElementById(`unit-${unit.id}-controls`);
+            const availableDates = Object.keys(unit.slots_by_date);
+
+            // 1. Создаем выпадающий список дат
+            const dateSelect = document.createElement('select');
+            dateSelect.className = 'date-selector';
+            availableDates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = new Date(date).toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                dateSelect.appendChild(option);
+            });
+
+            // 2. Контейнер для кнопок времени
+            const timeSlotsContainer = document.createElement('div');
+            timeSlotsContainer.className = 'time-slots';
+
+            // Функция обновления слотов при смене даты
+            const updateTimeSlots = (selectedDate) => {
+                timeSlotsContainer.innerHTML = '';
+                const slotsForDay = unit.slots_by_date[selectedDate] || [];
+
+                if (slotsForDay.length === 0) {
+                    timeSlotsContainer.innerHTML = '<p class="no-slots">Нет слотов на эту дату.</p>';
+                    return;
+                }
+
+                slotsForDay.forEach(slot => {
+                    const timeBtn = document.createElement('button');
+                    timeBtn.className = 'time-slot-btn';
+                    // Форматируем время (убираем дату из строки "YYYY-MM-DD HH:MM:SS")
+                    timeBtn.textContent = slot.slot_datetime.split(' ')[1].substring(0, 5);
+                    timeBtn.onclick = () => {
+                        alert(`Вы выбрали слот ID ${slot.id} (${timeBtn.textContent}) в зале "${unit.name}".`);
+                        // Здесь можно добавить логику для отправки запроса бронирования на сервер
+                    };
+                    timeSlotsContainer.appendChild(timeBtn);
+                });
+            };
+
+            // Обработчик смены даты
+            dateSelect.addEventListener('change', (e) => {
+                updateTimeSlots(e.target.value);
+            });
+
+            // Добавляем элементы на страницу
+            controlsContainer.appendChild(dateSelect);
+            controlsContainer.appendChild(timeSlotsContainer);
+
+            // Инициализируем слоты для первой доступной даты
+            if (availableDates.length > 0) {
+                updateTimeSlots(availableDates[0]);
+            }
+        }
+
+        // Запускаем процесс загрузки при загрузке страницы
+        fetchData();
+    </script>
+</body>
+
+</html>
