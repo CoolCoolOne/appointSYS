@@ -21,7 +21,6 @@ class UnitResource extends JsonResource
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'duration_minutes' => $this->duration_minutes,
-            'departament_name' => $this->departament->name,
         ];
     }
 }

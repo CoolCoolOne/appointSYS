@@ -19,7 +19,13 @@ class UnitController extends Controller
         $units = $department->units()->get();
         
         // Используем UnitResource для форматирования коллекции
-        return UnitResource::collection($units);
+        return UnitResource::collection($units)
+            ->additional([
+                'meta' => [
+                    'department_id' => $department->id,
+                    'department_name' => $department->name,
+                ]
+            ]);
     }
 
 }
