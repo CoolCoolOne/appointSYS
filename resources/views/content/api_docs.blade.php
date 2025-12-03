@@ -115,7 +115,7 @@
                         <td><span class="badge bg-success">GET</span></td>
                         <td><code>/api/departaments/{departmentId}/units</code></td>
                         <td>
-                            Получение списка юнитов по ID департамента.
+                            Получение списка юнитов по ID отдела.
                             <button class="btn btn-link btn-sm text-info p-0" type="button" data-bs-toggle="collapse" data-bs-target="#responseUnits" aria-expanded="false" aria-controls="responseUnits">
                                 Примеры
                             </button>

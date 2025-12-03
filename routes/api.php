@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\DepartamentController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\MeetingController;
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 
 
