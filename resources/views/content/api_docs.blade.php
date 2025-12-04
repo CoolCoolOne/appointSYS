@@ -29,7 +29,7 @@
     <form action="{{ route('generate-api-token') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-success container-fluid mt-1 text-center">
-            {{ $latestToken ? 'Сгенерировать API-токен (старый будет удален)' : 'Сгенерировать API-токен' }}
+            {{ $latestToken ? 'Сгенерировать API-токен (старый будет удален) [только маршрут /api/test-auth]' : 'Сгенерировать API-токен [только маршрут /api/test-auth]' }}
         </button>
     </form>
 

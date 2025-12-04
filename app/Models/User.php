@@ -54,4 +54,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(Departament::class);
     }
 
+    public function userdomains()
+    {
+        return $this->hasMany(UserDomain::class);
+    }
+
 }
