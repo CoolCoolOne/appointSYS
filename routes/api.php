@@ -19,14 +19,3 @@ Route::middleware([CustomCorsMiddleware::class, 'throttle:60,1'])->group(functio
 
 
 });
-
-Route::middleware(['auth:sanctum', 'verified', 'throttle:60,1'])->group(function () {
-
-    Route::get('/test-auth', function (Request $request) {
-        return response()->json([
-            'message' => 'Вы успешно прошли аутентификацию и получили доступ к защищенному маршруту!',
-            'user' => $request->user(),
-        ]);
-    });
-
-});

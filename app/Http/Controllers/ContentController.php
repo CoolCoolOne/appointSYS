@@ -19,10 +19,9 @@ class ContentController extends Controller
     public function api_docs()
     {
         $user = Auth::user();
-        $latestToken = $user->tokens()->latest()->first();
+        $api_key = $user->api_key;
         return view('content.api_docs', [
-            'latestToken' => $latestToken,
-            'newTokenRaw' => session('api_token')
+            'api_key_raw' => $api_key
         ]);
     }
 

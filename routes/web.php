@@ -24,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/viget/test.html', function () {
         return view('viget.test');
     });
-    Route::post('/api_doc/api-token/generate', [UserController::class, 'generateToken'])->name('generate-api-token');
+    Route::post('/api_doc/api-key/generate', [UserController::class, 'generateApiKey'])->name('generate-api-key');
 
     Route::delete('/userlist/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
     Route::post('/userlist/{user}/verify', [UserController::class, 'verify_manualy'])->name('verify_manualy');

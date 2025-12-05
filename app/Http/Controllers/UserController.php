@@ -146,16 +146,14 @@ class UserController extends Controller
         return redirect()->route('userlist')->with('success', 'Пользователь верифицирован!');
     }
 
-        public function generateToken(Request $request)
+    public function generateApiKey(Request $request)
     {
         $user = $request->user();
-
-        $user->tokens()->delete();
-
-        $token = $user->createToken('api-access-token')->plainTextToken;
-
+        $newApiKey = Str::random(40);
+        $user->api_key = $newApiKey;
+        $user->save();
         return redirect()->route('api_docs')->with([
-            'api_token' => $token,
+            'api_key_raw' => $newApiKey,
         ]);
     }
 
