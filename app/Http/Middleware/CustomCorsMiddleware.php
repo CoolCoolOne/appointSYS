@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Models\User; // Используем модель User для поиска ключа
+use Symfony\Component\HttpFoundation\Response; 
+use App\Models\User; 
 
 class CustomCorsMiddleware
 {
