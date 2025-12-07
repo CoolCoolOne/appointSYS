@@ -27,7 +27,7 @@ class MeetingController extends Controller
         $phone = str_replace(['(', ')', ' ', '-'], '', $request->phone);
         
         $phoneValidator = Validator::make(['phone' => $phone], [
-            'phone' => 'required|regex:/^[0-9]{9,15}$/',
+            'phone' => 'required|regex:/^\+?[0-9]{9,15}$/',
         ]);
 
         if ($phoneValidator->fails()) {

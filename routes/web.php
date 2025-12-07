@@ -10,6 +10,7 @@ use App\Http\Controllers\SlotController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WidgetController;
 
 Route::get("/", [
     function () {
@@ -51,6 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 
+    Route::get('/api-docs/generate-widget-snippet', [WidgetController::class, 'createGeneratorForm'])->name('api-docs.create-viget');
+    Route::get('/api-docs/widget-iframe-content', [WidgetController::class, 'showIframeWidget'])->name('api-docs.show-iframe-widget');
 });
 
 
@@ -102,4 +105,3 @@ Route::middleware('auth')->group(function () {
 
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
 });
-

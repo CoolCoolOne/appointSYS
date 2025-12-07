@@ -60,6 +60,22 @@
                     <a href="{{ route('api_docs') }}" class="nav-link text-white">
                         API доки
                     </a>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item ms-4 dropdown ">
+                            <a style="color:rgb(228, 228, 228)" class="link-light"
+                                href="{{ route('api-docs.create-viget') }}">
+                                Создать виджет
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item ms-4 dropdown ">
+                            <a style="color:rgb(228, 228, 228)" class="link-light"
+                                href="#">
+                                Разрешённые домены
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ route('meetings.index') }}" class="nav-link text-white mt-1">
@@ -148,8 +164,7 @@
 
 
 
-    <script src="{{ asset('./js/bootstrap.bundle.min.js') }}"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="{{ asset('./js/bootstrap.bundle.min.js') }}">
     </script>
 </body>
 

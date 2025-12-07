@@ -20,13 +20,19 @@ class CustomCorsMiddleware
             return response('Unauthorized (Invalid API Key)', 401);
         }
 
-        if ($origin && !$this->isOriginAllowedForUser($origin, $user)) {
+        // --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
+        // Проверяем, является ли домен локальным
+        $isLocal = str_contains($origin, '127.0.0.1') || str_contains($origin, 'localhost');
+
+        // Если Origin отправлен, и он НЕ локальный, и его нет в разрешенных доменах пользователя - блокируем.
+        if ($origin && !$isLocal && !$this->isOriginAllowedForUser($origin, $user)) {
             return response('Forbidden (Origin not allowed for this API key)', 403);
         }
+        // -------------------------
 
         $response = $next($request);
 
-
+        // Заголовки CORS
         $corsOrigin = $origin ?? '*';
 
         $response->withHeaders([
@@ -44,12 +50,14 @@ class CustomCorsMiddleware
         if (!$apiKey) {
             return null;
         }
+        // Убедитесь, что поле в БД называется именно 'api_key'
         return User::where('api_key', $apiKey)->first();
     }
 
     private function isOriginAllowedForUser(?string $origin, User $user): bool
     {
         // Проверяем, есть ли такой домен в списке доменов пользователя
+        // Убедитесь, что связь называется userdomains() и поле в таблице называется domain_url
         return $user->userdomains()->where('domain_url', $origin)->exists();
     }
 }
