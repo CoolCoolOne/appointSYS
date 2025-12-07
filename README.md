@@ -36,6 +36,12 @@
 <br>
 <img width="1000" alt="" src="https://github.com/CoolCoolOne/appointSYS/blob/main/public/images/demo/14.png" />
 <br>
+<img width="1000" alt="" src="https://github.com/CoolCoolOne/appointSYS/blob/main/public/images/demo/15.png" />
+<br>
+<img width="1000" alt="" src="https://github.com/CoolCoolOne/appointSYS/blob/main/public/images/demo/16.png" />
+<br>
+<img width="1000" alt="" src="https://github.com/CoolCoolOne/appointSYS/blob/main/public/images/demo/17.png" />
+<br>
 
 ### Упрощенная схема БД
 
