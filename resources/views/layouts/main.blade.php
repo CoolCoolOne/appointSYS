@@ -71,8 +71,8 @@
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item ms-4 dropdown ">
                             <a style="color:rgb(228, 228, 228)" class="link-light"
-                                href="#">
-                                Разрешённые домены
+                                href="{{ route('domains.index') }}">
+                                Разрешённые url
                             </a>
                         </li>
                     </ul>

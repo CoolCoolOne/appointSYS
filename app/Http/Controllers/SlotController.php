@@ -16,7 +16,8 @@ class SlotController extends Controller
     public function index(int $departament_id, int $unit_id)
     {
         $unit = Unit::find($unit_id);
-        $slots = Slot::all()->where('unit_id', $unit_id);
+        // $slots = Slot::all()->where('unit_id', $unit_id);
+        $slots = Slot::where('unit_id', $unit_id)->get();
         if ($slots->count() === 0) {
             return redirect()->route('slots.create', [$departament_id, $unit_id])->with('success', 'У юнита нет слотов, создайте их!');
         } else {

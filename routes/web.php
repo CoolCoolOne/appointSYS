@@ -11,6 +11,8 @@ use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WidgetController;
+use App\Http\Controllers\UserDomainController;
+
 
 Route::get("/", [
     function () {
@@ -53,13 +55,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 
     Route::get('/api-docs/generate-widget-snippet', [WidgetController::class, 'createGeneratorForm'])->name('api-docs.create-viget');
-    Route::get('/api-docs/widget-iframe-content', [WidgetController::class, 'showIframeWidget'])->name('api-docs.show-iframe-widget');
+
+    Route::get('/domains', [UserDomainController::class, 'index'])->name('domains.index');
+    Route::get('/domains/create', [UserDomainController::class, 'create'])->name('domains.create');
+    Route::post('/domains', [UserDomainController::class, 'store'])->name('domains.store');
+    Route::delete('/domains/{domain}', [UserDomainController::class, 'destroy'])->name('domains.destroy');
 });
 
 
 
 
 Route::middleware('guest')->group(function () {
+
+    Route::get('/api-docs/widget-iframe-content', [WidgetController::class, 'showIframeWidget'])->name('api-docs.show-iframe-widget');
 
     Route::get('register', [UserController::class, 'create'])->name('register');
     Route::post('register', [UserController::class, 'store'])->name('user.store');
@@ -93,7 +101,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
 
-        return redirect()->route('profile');
+        return redirect()->route('home');
     })->middleware(['signed'])->name('verification.verify');
 
     Route::post('/email/verification-notification', function (Request $request) {

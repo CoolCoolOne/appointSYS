@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('user_domains', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(); // Связь с вашим клиентом/пользователем CRM
-            $table->string('domain_url'); // Например: https://client-site.com
+            $table->string('domain_url')->unique();;
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

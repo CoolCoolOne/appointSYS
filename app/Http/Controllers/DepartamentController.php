@@ -10,7 +10,6 @@ class DepartamentController extends Controller
 {
     public function index()
     {
-        $user_id = Auth::id();
         $departaments = Departament::latest()->paginate(10); 
         return view('departaments.index', compact('departaments'));
     }

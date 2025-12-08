@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserDomain extends Model
 {
     protected $fillable = [
-        'user_id',
+        'note',
         'domain_url',
     ];
 
