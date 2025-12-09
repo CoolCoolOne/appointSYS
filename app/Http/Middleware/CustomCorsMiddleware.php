@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response; 
-use App\Models\User; 
+use App\Models\UserDomain;
+use App\Models\User;
 
 class CustomCorsMiddleware
 {
@@ -58,6 +59,6 @@ class CustomCorsMiddleware
     {
         // Проверяем, есть ли такой домен в списке доменов пользователя
         // Убедитесь, что связь называется userdomains() и поле в таблице называется domain_url
-        return $user->userdomains()->where('domain_url', $origin)->exists();
+        return UserDomain::where('domain_url', $origin)->exists();
     }
 }

@@ -138,9 +138,15 @@
             };
             const response = await fetch(url, options);
             if (!response.ok) {
-                if (response.status === 401 || response.status === 403) {
-                    throw new Error('Ошибка авторизации. Проверьте ваш API-ключ и разрешенные домены (Origin).');
+                // --- ИСПРАВЛЕНИЕ: Разделяем обработку ошибок 401 и 403 ---
+                if (response.status === 401) {
+                    throw new Error('Ошибка: Неверный или отсутствует API-ключ.');
                 }
+                if (response.status === 403) {
+                    // Это сообщение появится, если API-ключ верен, но домен не разрешен в вашей таблице user_domains.
+                    throw new Error('Ошибка: Домен (Origin) не разрешен для использования этого API-ключа.');
+                }
+                // -----------------------------------------------------
                 throw new Error('Сетевая ошибка: ' + response.statusText);
             }
             return response;

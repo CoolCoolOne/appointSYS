@@ -63,11 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-
+Route::get('/api-docs/widget-iframe-content', [WidgetController::class, 'showIframeWidget'])->name('api-docs.show-iframe-widget');
 
 Route::middleware('guest')->group(function () {
 
-    Route::get('/api-docs/widget-iframe-content', [WidgetController::class, 'showIframeWidget'])->name('api-docs.show-iframe-widget');
+    
 
     Route::get('register', [UserController::class, 'create'])->name('register');
     Route::post('register', [UserController::class, 'store'])->name('user.store');
