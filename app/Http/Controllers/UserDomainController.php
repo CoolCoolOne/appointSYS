@@ -26,6 +26,7 @@ class UserDomainController extends Controller
             'domain_url' => 'required|max:100|url',
             'note' => 'max:200',
         ]);
+        $validated['domain_url'] = rtrim($validated['domain_url'], '/');
         UserDomain::create($validated);
         return redirect()->route('domains.index')->with('success', 'Домен добавлен в список разрешённых!');
     }
